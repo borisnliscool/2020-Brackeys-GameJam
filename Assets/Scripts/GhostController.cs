@@ -7,17 +7,21 @@ public class GhostController : MonoBehaviour
 
     float timer = 0f;
     float timerMax = 5f;
+    ArrayList ghostArray = new ArrayList();
 
     public void Update()
     {
-
-        Debug.Log("ea");
         timer += Time.deltaTime;
         if (timer > timerMax)
         {
             timer = 0.0f;
 
-            Debug.Log("helo");
+            // ADD POSITION TO ARRAY
+            ghostArray.Add("position" + transform.position);
+
+            Debug.Log(ghostArray + " | ");
+
+
         }
         
     }
