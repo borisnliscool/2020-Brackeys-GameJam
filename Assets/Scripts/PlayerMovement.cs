@@ -8,10 +8,16 @@ public class PlayerMovement : MonoBehaviour
     public float JumpSpeed;
     public float movementSpeed;
     private bool isGrounded = false;
+    private Vector2 startPos = new Vector2(0, 0);
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void tpToStart()
+    {
+        transform.position = startPos;
     }
 
     void FixedUpdate()
