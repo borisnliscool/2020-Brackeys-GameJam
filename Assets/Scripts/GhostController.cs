@@ -29,8 +29,8 @@ public class GhostController : MonoBehaviour
             if (ghostArray.Count <= count)
                 return;
 
-            ghost.rB.velocity += new Vector2(ghostArray[count].x * Time.deltaTime * 350, 0);
-            ghost.rB.AddForce(new Vector2(0, ghostArray[count].y));
+            ghost.rB.velocity += new Vector2(ghostArray[count].x * Time.deltaTime * 10, 0);
+            ghost.rB.AddForce(new Vector2(0, ghostArray[count].y) * Time.deltaTime * 9.81f);
             
             count++;
         }
