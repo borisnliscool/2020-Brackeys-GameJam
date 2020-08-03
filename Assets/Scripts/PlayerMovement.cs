@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float smoothSpeed;
     private CircleCollider2D circle;
     public LayerMask everyLayer;
+    private bool jumpCooldownStarted;
 
     private void Start()
     {
@@ -33,22 +34,32 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && isGrounded == true)
         {
             isGrounded = false;
-            rb.AddForce(transform.up * JumpSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, Time.deltaTime * JumpSpeed);
+            Debug.Log("I JUST JUMPED");
         }
 
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-
-        isGrounded = true; 
+        if (col.isTrigger)
+        {
+            return;
+        }
+        isGrounded = true;
     }
 
-    
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.isTrigger)
+        {
+            return;
+        }
+        isGrounded = true;
+    }
 
     void OnTriggerExit2D(Collider2D col)
     {
-
         isGrounded = false;
 
     }
