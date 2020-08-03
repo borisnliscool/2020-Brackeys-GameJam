@@ -7,15 +7,19 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public float JumpSpeed;
     public float movementSpeed;
-    private bool isGrounded = false;
+    public bool isGrounded = false;
     private Vector2 startPos = new Vector2(0, 0);
+    public float smoothSpeed;
+    private CircleCollider2D circle;
+    public LayerMask everyLayer;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        circle = GetComponent<CircleCollider2D>();
     }
 
-    public void tpToStart()
+    public void TpToStart()
     {
         transform.position = startPos;
     }
@@ -24,8 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        transform.position = transform.position + new Vector3(horizontalInput * movementSpeed * Time.deltaTime, 0, 0);
-
+        rb.velocity = new Vector2(horizontalInput * movementSpeed, rb.velocity.y);
 
         if (Input.GetKey(KeyCode.Space) && isGrounded == true)
         {
@@ -35,13 +38,18 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        isGrounded = true;
+
+        isGrounded = true; 
     }
 
-    void OnCollisionExit2D(Collision2D col)
+    
+
+    void OnTriggerExit2D(Collider2D col)
     {
+
         isGrounded = false;
+
     }
 }

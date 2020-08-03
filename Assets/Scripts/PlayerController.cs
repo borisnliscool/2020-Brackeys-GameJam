@@ -6,8 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     public GhostController ghost;
     public PlayerMovement pMovement;
+    private void Start()
+    {
+        ghost = FindObjectOfType<GhostController>();
+        pMovement = FindObjectOfType<PlayerMovement>();
+    }
 
-    void Update()
+    private void Update()
     {
         if(Input.GetKeyDown(KeyCode.L))
         {
@@ -15,9 +20,9 @@ public class PlayerController : MonoBehaviour
         }    
     }
 
-    void StartRewind()
+    private void StartRewind()
     {
-        pMovement.tpToStart();
+        pMovement.TpToStart();
         ghost.StartGhost();
     }
 }

@@ -4,25 +4,30 @@ using UnityEngine;
 
 public class GhostController : MonoBehaviour
 {
-    float timer = 0f;
-    float timerMax = 1f;
-    List<Vector3> ghostArray = new List<Vector3>();
+    // Variables
+    private List<Vector3> ghostArray = new List<Vector3>();
     public Transform ghostPrefab;
     public Transform ghost;
     public int count = 0;
     public bool ghostStarted = false;
     public Transform player;
 
-    public void Update()
+    private void Start()
+    {
+        player = FindObjectOfType<PlayerController>().transform;
+    }
+
+    private void Update()
     {
         if(!ghostStarted)
-        {
             ghostArray.Add(player.transform.position);
-        }
 
         if (ghostStarted)
         {
-            // TODO: FIX INDEX OUT OF BOUNDS
+            // Guard Clause.
+            if (ghostArray.Count <= count)
+                return;
+                
             ghost.position = ghostArray[count];
             count++;
         }
