@@ -5,21 +5,24 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     // Variables
-    ButtonScript button;
+    [SerializeField] private ButtonScript button;
     [SerializeField] private Sprite closedDoor;
     [SerializeField] private Sprite openedDoor;
     SpriteRenderer spriteRenderer;
+    Collider2D collider2D;
     [SerializeField] private Door linkingDoor;
-    public bool doorLock;
+    private bool doorLock;
+
     void Awake()
     {
-        button = FindObjectOfType<ButtonScript>(); // BETTER WAY TO LINK THIS, FIX LATER
         spriteRenderer = GetComponent<SpriteRenderer>();
+        collider2D = GetComponent<Collider2D>();
     }
 
    
     void OnEnable()
     {
+        collider2D.isTrigger = false;
         button.ButtonSwitchedOpen += Button_ButtonSwitchedOpen;
         button.ButtonSwitchedClosed += Button_ButtonSwitchedClosed;
     }
@@ -33,12 +36,14 @@ public class Door : MonoBehaviour
     private void Button_ButtonSwitchedClosed()
     {
         // CLOSE DOOR
+        collider2D.isTrigger = false;
         spriteRenderer.sprite = closedDoor;
     }
 
     private void Button_ButtonSwitchedOpen()
     {
         // OPEN DOOR
+        collider2D.isTrigger = true;
         spriteRenderer.sprite = openedDoor;
     }
 

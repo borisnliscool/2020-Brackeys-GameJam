@@ -4,18 +4,42 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public GameObject target;
+    private PlayerController player;
     public float smoothSpeed;
     private Vector3 offset = new Vector3(0, 2, -10);
+    private bool trackingPlayer = true;
 
-    private void Start()
+    private void Awake()
     {
-        target = GameObject.FindWithTag("Player");
+        player = FindObjectOfType<PlayerController>();
+    }
+
+    private void OnEnable()
+    {
+        player.PlayerDied += Player_PlayerDied;
+    }
+    private void OnDestroy()
+    {
+        if (player == null)
+        {
+            return;
+        }
+        player.PlayerDied -= Player_PlayerDied;
+    }
+
+    private void Player_PlayerDied()
+    {
+        trackingPlayer = false;
+        player.PlayerDied -= Player_PlayerDied;
     }
 
     private void LateUpdate()
     {
-        Vector3 desiredPosition = target.transform.position + offset;
+        if (!trackingPlayer)
+        {
+            return;
+        }
+        Vector3 desiredPosition = player.transform.position + offset;
         Vector3 smoothedPostion = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
         transform.position = smoothedPostion;
     }

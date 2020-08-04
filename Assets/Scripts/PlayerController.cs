@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public delegate void PlayerDeath();
+    public event PlayerDeath PlayerDied;
+
     public GhostController ghost;
     public PlayerMovement pMovement;
     private void Start()
@@ -22,7 +25,13 @@ public class PlayerController : MonoBehaviour
 
     private void StartRewind()
     {
-        pMovement.TpToStart();
-        ghost.StartGhost();
+        // pMovement.TpToStart();
+        ghost.StartNewGhost();
+    }
+
+    public void Die()
+    {
+        PlayerDied?.Invoke();
+        Destroy(gameObject);
     }
 }
