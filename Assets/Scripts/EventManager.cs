@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
-    public void LoadScene()
+    public void LoadScene(string LevelName)
     {
-        SceneManager.LoadScene("Level 1", LoadSceneMode.Single);
+        SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
     }
 }
