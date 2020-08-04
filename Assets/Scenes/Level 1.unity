@@ -1271,7 +1271,7 @@ Tilemap:
   m_GameObject: {fileID: 847046206}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: 2, y: -3, z: 0}
+  - first: {x: 2, y: -1, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 0
@@ -1283,10 +1283,10 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 45fb31168c15d5d41a27096fc27f655a, type: 2}
+    m_Data: {fileID: 11400000, guid: 2e9c36e3155b47945a926d9e8870c10f, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 5e7af4aea9c6a554189586387aa5a251, type: 3}
+    m_Data: {fileID: 21300000, guid: ba9127817b0b4dc4eb91aa9318a3561d, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1
     m_Data:
@@ -1346,7 +1346,7 @@ GameObject:
   - component: {fileID: 1011239284}
   - component: {fileID: 1011239283}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1635,7 +1635,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 50
+    m_MaxSize: 35
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

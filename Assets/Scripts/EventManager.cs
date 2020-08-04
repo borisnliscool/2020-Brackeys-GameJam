@@ -23,8 +23,10 @@ public class EventManager : MonoBehaviour
     {
         animControlDeath.SetTrigger("PlayerDied");
     }
+
     public void LoadScene(string LevelName)
     {
         SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
     }
+
 }
