@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     // Variables
-    Button button;
+    ButtonScript button;
     [SerializeField] private Sprite closedDoor;
     [SerializeField] private Sprite openedDoor;
     SpriteRenderer spriteRenderer;
@@ -13,7 +13,7 @@ public class Door : MonoBehaviour
     public bool doorLock;
     void Awake()
     {
-        button = FindObjectOfType<Button>(); // BETTER WAY TO LINK THIS, FIX LATER
+        button = FindObjectOfType<ButtonScript>(); // BETTER WAY TO LINK THIS, FIX LATER
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -49,7 +49,6 @@ public class Door : MonoBehaviour
             linkingDoor.doorLock = true;
             doorLock = true;
             col.transform.position = linkingDoor.transform.position - new Vector3(0, 0.5f);
-            Debug.Log("Teleported " + col.name);
         }
     }
 

@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = false;
             rb.velocity = new Vector2(rb.velocity.x, Time.deltaTime * JumpSpeed);
-            Debug.Log("I JUST JUMPED");
         }
 
     }

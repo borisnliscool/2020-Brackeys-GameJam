@@ -21,7 +21,7 @@ public class GhostController : MonoBehaviour
     private void Update()
     {
         if(!ghostStarted)
-            ghostArray.Add(playerM.rb.velocity);
+            ghostArray.Add(playerM.transform.position);
 
         if (ghostStarted)
         {
@@ -29,8 +29,8 @@ public class GhostController : MonoBehaviour
             if (ghostArray.Count <= count)
                 return;
 
-            ghost.rB.velocity += new Vector2(ghostArray[count].x * Time.deltaTime * 10, 0);
-            ghost.rB.AddForce(new Vector2(0, ghostArray[count].y) * Time.deltaTime * 9.81f);
+            ghost.transform.position = ghostArray[count];
+            //ghost.rB.AddForce(new Vector2(0, ghostArray[count].y) * Time.deltaTime * 9.81f);
             
             count++;
         }
@@ -40,8 +40,6 @@ public class GhostController : MonoBehaviour
     {
         if(!ghostStarted)
         {
-            Debug.Log("ghost starting!");
-
             ghost = Instantiate(ghostPrefab, ghostArray[0], Quaternion.identity);
 
             ghostStarted = true;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 
-public class Button : MonoBehaviour
+public class ButtonScript : MonoBehaviour
 {
     public delegate void ButtonSwitch();
     public event ButtonSwitch ButtonSwitchedOpen;
