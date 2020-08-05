@@ -12,6 +12,7 @@ public class ButtonScript : MonoBehaviour
     // Variables
     [SerializeField] private Sprite unpressedButton;
     [SerializeField] private Sprite pressedButton;
+    public bool ButtonPressed = false;
     private SpriteRenderer spriteRenderer;
     List<Collider2D> collidedObjects = new List<Collider2D>();
 
@@ -28,6 +29,7 @@ public class ButtonScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         spriteRenderer.sprite = pressedButton;
+        ButtonPressed = true;
         if (!collidedObjects.Contains(col))
         {
             collidedObjects.Add(col);
@@ -47,6 +49,7 @@ public class ButtonScript : MonoBehaviour
     {
         if (collidedObjects.Count == 0)
         {
+            ButtonPressed = false;
             spriteRenderer.sprite = unpressedButton;
             ButtonSwitchedClosed?.Invoke();
         }

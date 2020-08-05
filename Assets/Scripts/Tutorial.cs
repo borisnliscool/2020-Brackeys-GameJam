@@ -13,15 +13,13 @@ public class Tutorial : MonoBehaviour
     private StringBuilder stringBuilder;
     public List<string> messages = new List<string>();
     public int currentMessage;
+    private bool tutorialOver = false;
     private bool textChanging;
 
     // Start is called before the first frame update
     void Start()
     {
         stringBuilder = new StringBuilder();
-        messages.Add("Goal: Reach the apple");
-        messages.Add("Step on the button to open the doors");
-
         enterText.gameObject.SetActive(false);
     }
 
@@ -31,10 +29,17 @@ public class Tutorial : MonoBehaviour
         {
             ChangeToNextMessage();
         }
+
+        if(tutorialOver)
+        {
+            Debug.Log("Tutorial over");
+        }
     }
+
 
     public void ChangeToNextMessage()
     {
+        currentMessage++;
         if (textChanging)
         {
             Debug.LogError("Cannot clear text while changing.");
@@ -45,16 +50,17 @@ public class Tutorial : MonoBehaviour
         tutorialText.text = "";
         enterText.gameObject.SetActive(false);
 
-        if (currentMessage == (messages.Count - 1))
+        if (currentMessage == messages.Count)
         {
+            tutorialOver = true;
             TutorialClosed?.Invoke();
             return;
         }
         else
         {
-            currentMessage++;
             StartCoroutine(ChangeText());
         }
+        
     }
 
 

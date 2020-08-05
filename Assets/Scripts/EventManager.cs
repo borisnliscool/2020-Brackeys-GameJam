@@ -64,8 +64,9 @@ public class EventManager : MonoBehaviour
 
     private void Tutorial_TutorialClosed()
     {
-        // 
-        animControlTutorial.SetTrigger("TutorialClosed");
+        //
+        tutorial.gameObject.SetActive(false);
+        animControlGhostDeath.SetTrigger("TutorialClosed");
     }
 
     private void Finish_LevelCompleted(string nextLevel)

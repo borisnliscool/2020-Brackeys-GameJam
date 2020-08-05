@@ -668,7 +668,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialText: {fileID: 1914141827}
   enterText: {fileID: 195612462}
-  messages: []
+  messages:
+  - 'Goal: Reach the apple.'
+  - Step on the button to open the doors.
   currentMessage: 0
 --- !u!1 &737315884
 GameObject:
@@ -7568,11 +7570,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 743264399977228398, guid: 42c963c04cde3d445a431f611a2b5f11, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 743264399977228398, guid: 42c963c04cde3d445a431f611a2b5f11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 743264399977228398, guid: 42c963c04cde3d445a431f611a2b5f11, type: 3}
       propertyPath: m_LocalPosition.z
