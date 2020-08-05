@@ -10,14 +10,11 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded = false;
     private Vector2 startPos = new Vector2(0, 0);
     public float smoothSpeed;
-    private CircleCollider2D circle;
     public LayerMask everyLayer;
-    private bool jumpCooldownStarted;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        circle = GetComponent<CircleCollider2D>();
     }
 
     public void TpToStart()
@@ -27,6 +24,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (FreezeTime.i.timeFroze)
+        {
+            return;
+        }
+
         float horizontalInput = Input.GetAxis("Horizontal");
 
         rb.velocity = new Vector2(horizontalInput * movementSpeed, rb.velocity.y);

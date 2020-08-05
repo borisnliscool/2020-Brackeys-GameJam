@@ -17,6 +17,11 @@ public class MovingPlatform : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (FreezeTime.i.timeFroze)
+        {
+            return;
+        }
+
         if (goingToEnd)
         {
             // Return to start.

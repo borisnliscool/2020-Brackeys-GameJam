@@ -17,7 +17,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G))
+        if (FreezeTime.i.timeFroze)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
         {
             StartRewind();
         }    
@@ -25,9 +30,10 @@ public class PlayerController : MonoBehaviour
 
     private void StartRewind()
     {
-        // pMovement.TpToStart();
         ghost.StartNewGhost();
     }
+
+
 
     public void Die()
     {

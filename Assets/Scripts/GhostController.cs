@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class GhostController : MonoBehaviour
 {
+    public delegate void PlayerToGhost();
+    public event PlayerToGhost PlayerTurnedToGhost;
+
     // Variables
     private List<List<Vector2>> ghostArray = new List<List<Vector2>>();
     private List<int> ghostIndexPos = new List<int>();
-    public Ghost ghostPrefab;
+    [SerializeField] private Ghost ghostPrefab;
+    [SerializeField] private PlayerController playerPrefab;
     public List<Ghost> activeGhosts;
     public int listCount = 0;
     public PlayerMovement playerM;
@@ -53,6 +57,10 @@ public class GhostController : MonoBehaviour
             return;
         }
 
+        if (FreezeTime.i.timeFroze)
+        {
+            return;
+        }
         ghostArray[listCount].Add(playerM.transform.position);
 
         for (int i = 0; i < activeGhosts.Count; i++)
@@ -73,5 +81,28 @@ public class GhostController : MonoBehaviour
         ghostArray.Add(new List<Vector2>());
         ghostIndexPos.Add(0);
         listCount++;
+    }
+
+    public void PlayerDied()
+    {
+        if (activeGhosts.Count == 0)
+        {
+            playerM.GetComponent<PlayerController>().Die();
+            return;
+        }
+        
+        Ghost lastGhost = activeGhosts[activeGhosts.Count - 1];
+        playerM.transform.position = lastGhost.transform.position;
+        playerM.gameObject.SetActive(false);
+        activeGhosts.Remove(lastGhost);
+        Destroy(lastGhost.gameObject);
+        PlayerTurnedToGhost?.Invoke();
+        StartCoroutine(ReactivatePlayer());
+    }
+
+    private IEnumerator ReactivatePlayer()
+    {
+        yield return new WaitForFixedUpdate();
+        playerM.gameObject.SetActive(true);
     }
 }

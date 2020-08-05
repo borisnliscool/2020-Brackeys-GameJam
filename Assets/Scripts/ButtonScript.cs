@@ -27,7 +27,6 @@ public class ButtonScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(col.name + " entered.");
         spriteRenderer.sprite = pressedButton;
         if (!collidedObjects.Contains(col))
         {
@@ -48,7 +47,6 @@ public class ButtonScript : MonoBehaviour
     {
         if (collidedObjects.Count == 0)
         {
-            Debug.Log(col.name + " exited.");
             spriteRenderer.sprite = unpressedButton;
             ButtonSwitchedClosed?.Invoke();
         }
