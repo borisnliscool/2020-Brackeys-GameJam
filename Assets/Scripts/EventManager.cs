@@ -93,4 +93,9 @@ public class EventManager : MonoBehaviour
         SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
     }
 
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
+
 }

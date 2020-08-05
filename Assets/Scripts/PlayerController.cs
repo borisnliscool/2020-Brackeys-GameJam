@@ -9,10 +9,13 @@ public class PlayerController : MonoBehaviour
 
     public GhostController ghost;
     public PlayerMovement pMovement;
+    public EventManager eventMan;
+
     private void Start()
     {
         ghost = FindObjectOfType<GhostController>();
         pMovement = FindObjectOfType<PlayerMovement>();
+        eventMan = FindObjectOfType<EventManager>();
     }
 
     private void Update()
@@ -25,7 +28,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             StartRewind();
-        }    
+        }
+        
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Reloading scene");
+            eventMan.ReloadScene();
+        }
     }
 
     private void StartRewind()

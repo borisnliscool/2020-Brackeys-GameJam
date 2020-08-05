@@ -431,6 +431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88be9a49e4e32c4a9b33ab897354cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animControlDeath: {fileID: 0}
+  animControlGhostDeath: {fileID: 0}
+  animControlTutorial: {fileID: 0}
 --- !u!4 &893645628
 Transform:
   m_ObjectHideFlags: 0
@@ -514,7 +517,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: me and my ghost
+  m_Text: Ghosted
 --- !u!222 &1693010343
 CanvasRenderer:
   m_ObjectHideFlags: 0
