@@ -77,7 +77,7 @@ public class EventManager : MonoBehaviour
 
     private void Finish_LevelCompleted(string nextLevel)
     {
-        LoadScene(nextLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
     }
 
     private void PController_PlayerDied()
@@ -103,5 +103,4 @@ public class EventManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
-
 }

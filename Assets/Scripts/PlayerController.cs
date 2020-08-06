@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
     {
         PlayerDied?.Invoke();
         Destroy(gameObject);
+        int deaths = PlayerPrefs.GetInt("Deaths");
+        PlayerPrefs.SetInt("Deaths", deaths + 1);
     }
 
     IEnumerator TutorialMoved()

@@ -85,6 +85,8 @@ public class GhostController : MonoBehaviour
         ghostArray.Add(new List<Vector2>());
         ghostIndexPos.Add(0);
         listCount++;
+        int ghostsCreated = PlayerPrefs.GetInt("Ghosts");
+        PlayerPrefs.SetInt("Ghosts", ghostsCreated + 1);
         PlayerCreatedGhost?.Invoke();
     }
 
