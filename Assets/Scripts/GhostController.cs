@@ -7,12 +7,13 @@ public class GhostController : MonoBehaviour
 {
     public delegate void PlayerToGhost();
     public event PlayerToGhost PlayerTurnedToGhost;
-
+    public event PlayerToGhost PlayerCreatedGhost;
     // Variables
     private List<List<Vector2>> ghostArray = new List<List<Vector2>>();
     private List<int> ghostIndexPos = new List<int>();
     [SerializeField] private Ghost ghostPrefab;
     [SerializeField] private PlayerController playerPrefab;
+    private Vector2 lastPosition;
     public List<Ghost> activeGhosts;
     public int listCount = 0;
     public PlayerMovement playerM;
@@ -61,7 +62,10 @@ public class GhostController : MonoBehaviour
         {
             return;
         }
+
         ghostArray[listCount].Add(playerM.transform.position);
+        
+        
 
         for (int i = 0; i < activeGhosts.Count; i++)
         {
@@ -81,6 +85,7 @@ public class GhostController : MonoBehaviour
         ghostArray.Add(new List<Vector2>());
         ghostIndexPos.Add(0);
         listCount++;
+        PlayerCreatedGhost?.Invoke();
     }
 
     public void PlayerDied()

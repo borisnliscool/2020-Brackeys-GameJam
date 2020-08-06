@@ -37,7 +37,11 @@ public class EventManager : MonoBehaviour
         gController.PlayerTurnedToGhost += GController_PlayerTurnedToGhost;
         pController.PlayerDied += PController_PlayerDied;
         finish.LevelCompleted += Finish_LevelCompleted;
-        tutorial.TutorialClosed += Tutorial_TutorialClosed;
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            tutorial.TutorialClosed += Tutorial_TutorialClosed;
+        }
+        
 
         animControlGhostDeath.gameObject.SetActive(false);
         animControlDeath.gameObject.SetActive(false);
@@ -49,7 +53,10 @@ public class EventManager : MonoBehaviour
         {
             return;
         }
-        tutorial.TutorialClosed -= Tutorial_TutorialClosed;
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            tutorial.TutorialClosed -= Tutorial_TutorialClosed;
+        }
         gController.PlayerTurnedToGhost -= GController_PlayerTurnedToGhost;
         pController.PlayerDied -= PController_PlayerDied;
         finish.LevelCompleted -= Finish_LevelCompleted;
@@ -64,7 +71,6 @@ public class EventManager : MonoBehaviour
 
     private void Tutorial_TutorialClosed()
     {
-        //
         tutorial.gameObject.SetActive(false);
         animControlGhostDeath.SetTrigger("TutorialClosed");
     }

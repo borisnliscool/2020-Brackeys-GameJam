@@ -13,37 +13,78 @@ public class Tutorial : MonoBehaviour
     private StringBuilder stringBuilder;
     public List<string> messages = new List<string>();
     public int currentMessage;
-    private bool tutorialOver = false;
-    private bool textChanging;
+    private bool textChanging, disableEnterKey;
+    private ButtonScript tutorialButton;
+    private PlayerMovement playerMovement;
+    private PlayerController playerController;
 
     // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         stringBuilder = new StringBuilder();
         enterText.gameObject.SetActive(false);
+        tutorialButton = FindObjectOfType<ButtonScript>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        playerController = FindObjectOfType<PlayerController>();
+    }
+
+    void OnEnable()
+    {
+        playerMovement.PlayerMoved += TutorialButton_TutorialButtonUsed;
+        tutorialButton.TutorialButtonUsed += TutorialButton_TutorialButtonUsed;
+        playerController.PlayerGhostMove += PlayerGhostMoved;
+
+        playerMovement.tutorialFreeze = true;
+        playerMovement.tutorialJumpFreeze = true;
+        playerController.stopGhostSpawn = true;
+    }
+
+    
+
+    void OnDisable()
+    {
+        playerController.PlayerGhostMove -= PlayerGhostMoved;
+        playerMovement.PlayerMoved -= TutorialButton_TutorialButtonUsed;
+        tutorialButton.TutorialButtonUsed -= TutorialButton_TutorialButtonUsed;
+    }
+
+    private void TutorialButton_TutorialButtonUsed()
+    {
+        ChangeToNextMessage();
+    }
+
+    private void PlayerGhostMoved()
+    {
+        ChangeToNextMessage();
+        playerMovement.tutorialFreeze = false;
     }
 
     void Update()
     {
+        if (disableEnterKey)
+        {
+            return;
+        }
+        
         if (Input.GetKeyDown(KeyCode.Return))
         {
             ChangeToNextMessage();
         }
 
-        if(tutorialOver)
-        {
-            Debug.Log("Tutorial over");
-        }
     }
 
 
     public void ChangeToNextMessage()
     {
         currentMessage++;
-        if (textChanging)
+
+        
+
+        if (currentMessage == 4)
         {
-            Debug.LogError("Cannot clear text while changing.");
-            return;
+            playerController.stopGhostSpawn = false;
+            playerMovement.tutorialFreeze = true;
         }
 
         stringBuilder.Clear();
@@ -52,7 +93,6 @@ public class Tutorial : MonoBehaviour
 
         if (currentMessage == messages.Count)
         {
-            tutorialOver = true;
             TutorialClosed?.Invoke();
             return;
         }
@@ -71,6 +111,18 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator ChangeText()
     {
+
+        if (currentMessage == 0 || currentMessage == 5)
+        {
+            disableEnterKey = false;
+            enterText.gameObject.SetActive(true);
+        }
+        else
+        {
+            disableEnterKey = true;
+            enterText.gameObject.SetActive(false);
+        }
+
         if (!textChanging)
             textChanging = true;
         yield return new WaitForSeconds(0.05f);
@@ -89,7 +141,16 @@ public class Tutorial : MonoBehaviour
         if (stringBuilder.Length == messages[currentMessage].Length)
         {
             textChanging = false;
-            enterText.gameObject.SetActive(true);
+
+            if (currentMessage == 1)
+            {
+                playerMovement.tutorialFreeze = false;
+            }
+
+            if (currentMessage == 2)
+            {
+                playerMovement.tutorialJumpFreeze = false;
+            }
             yield break;
         }
         StartCoroutine(ChangeText());

@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public delegate void PlayerMove();
+    public event PlayerMove PlayerMoved;
+    public event PlayerMove PlayerJumped;
+
     public Rigidbody2D rb;
     public float JumpSpeed;
     public float movementSpeed;
     public bool isGrounded = false;
-    private Vector2 startPos = new Vector2(0, 0);
     public float smoothSpeed;
     public LayerMask everyLayer;
-
-    private void Start()
+    private bool tutorialMoved;
+    private bool tutorialJumped;
+    public bool tutorialFreeze;
+    public bool tutorialJumpFreeze;
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void TpToStart()
-    {
-        transform.position = startPos;
-    }
 
     void FixedUpdate()
     {
@@ -28,17 +30,31 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+        if (tutorialFreeze)
+        {
+            return;
+        }
 
         float horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput != 0 && !tutorialMoved)
+        {
+            tutorialMoved = true;
+            StartCoroutine(TutorialMoved());
+        }
 
         rb.velocity = new Vector2(horizontalInput * movementSpeed, rb.velocity.y);
 
-        if (Input.GetKey(KeyCode.Space) && isGrounded == true)
+        if (Input.GetKey(KeyCode.Space) && isGrounded && !tutorialJumpFreeze)
         {
+            if (!tutorialJumped)
+            {
+                tutorialJumped = true;
+                PlayerMoved?.Invoke();
+            }
             isGrounded = false;
             rb.velocity = new Vector2(rb.velocity.x, Time.deltaTime * JumpSpeed);
+            PlayerJumped?.Invoke();
         }
-
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -63,5 +79,11 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = false;
 
+    }
+
+    IEnumerator TutorialMoved()
+    {
+        yield return new WaitForSeconds(0.5f);
+        PlayerMoved?.Invoke();
     }
 }

@@ -6,10 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     public delegate void PlayerDeath();
     public event PlayerDeath PlayerDied;
+    public event PlayerDeath PlayerGhostMove;
 
     public GhostController ghost;
     public PlayerMovement pMovement;
     public EventManager eventMan;
+    public bool stopGhostSpawn;
 
     private void Start()
     {
@@ -25,8 +27,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G) && !stopGhostSpawn)
         {
+            StartCoroutine(TutorialMoved());
             StartRewind();
         }
         
@@ -48,5 +51,11 @@ public class PlayerController : MonoBehaviour
     {
         PlayerDied?.Invoke();
         Destroy(gameObject);
+    }
+
+    IEnumerator TutorialMoved()
+    {
+        yield return new WaitForSeconds(0.5f);
+        PlayerGhostMove?.Invoke();
     }
 }
