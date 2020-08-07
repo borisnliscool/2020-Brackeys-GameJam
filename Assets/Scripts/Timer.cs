@@ -9,7 +9,7 @@ public class Timer : MonoBehaviour
     private float time;
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().name == "Level 1")
         {
             time = 0;
         }
@@ -24,8 +24,12 @@ public class Timer : MonoBehaviour
         time += Time.deltaTime;
         timerText.text = time.ToString();
     }
-    void OnDisable()
+    void OnDestroy()
     {
+        if (time == 0)
+        {
+            return;
+        }    
         PlayerPrefs.SetFloat("time", time);
     }
 }

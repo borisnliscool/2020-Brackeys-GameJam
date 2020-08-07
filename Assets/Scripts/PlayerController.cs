@@ -10,14 +10,12 @@ public class PlayerController : MonoBehaviour
 
     public GhostController ghost;
     public PlayerMovement pMovement;
-    public EventManager eventMan;
     public bool stopGhostSpawn;
 
     private void Start()
     {
         ghost = FindObjectOfType<GhostController>();
         pMovement = FindObjectOfType<PlayerMovement>();
-        eventMan = FindObjectOfType<EventManager>();
     }
 
     private void Update()
@@ -31,12 +29,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(TutorialMoved());
             StartRewind();
-        }
-        
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log("Reloading scene");
-            eventMan.ReloadScene();
         }
     }
 

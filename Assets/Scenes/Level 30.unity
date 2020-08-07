@@ -12712,6 +12712,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6937590607777708378, guid: 46f913f3d31b5374cb4abaea29f1830b, type: 3}
+      propertyPath: animControlDeath
+      value: 
+      objectReference: {fileID: 1453215753}
+    - target: {fileID: 6937590607777708378, guid: 46f913f3d31b5374cb4abaea29f1830b, type: 3}
+      propertyPath: animControlGhostDeath
+      value: 
+      objectReference: {fileID: 1846014158}
     - target: {fileID: 6937590607777708381, guid: 46f913f3d31b5374cb4abaea29f1830b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -13071,7 +13079,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1514767678}
         m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
         m_MethodName: ReloadScene
         m_Mode: 1
@@ -13083,6 +13091,17 @@ MonoBehaviour:
           m_StringArgument: Level 2
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1514767678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6937590607777708378, guid: 46f913f3d31b5374cb4abaea29f1830b, type: 3}
+  m_PrefabInstance: {fileID: 944258692}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88be9a49e4e32c4a9b33ab897354cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1743617479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13247,7 +13266,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1514767678}
         m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
         m_MethodName: UnloadGhostUI
         m_Mode: 1

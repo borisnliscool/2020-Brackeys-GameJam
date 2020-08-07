@@ -27,6 +27,13 @@ public class EventManager : MonoBehaviour
         gController = FindObjectOfType<GhostController>();
         tutorial = FindObjectOfType<Tutorial>();
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReloadScene();
+        }
+    }
 
     void OnEnable()
     {
@@ -75,7 +82,7 @@ public class EventManager : MonoBehaviour
         animControlGhostDeath.SetTrigger("TutorialClosed");
     }
 
-    private void Finish_LevelCompleted(string nextLevel)
+    private void Finish_LevelCompleted()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
     }

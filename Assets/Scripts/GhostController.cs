@@ -99,8 +99,8 @@ public class GhostController : MonoBehaviour
         }
         
         Ghost lastGhost = activeGhosts[activeGhosts.Count - 1];
-        playerM.transform.position = lastGhost.transform.position;
         playerM.gameObject.SetActive(false);
+        playerM.transform.position = lastGhost.transform.position;
         activeGhosts.Remove(lastGhost);
         Destroy(lastGhost.gameObject);
         PlayerTurnedToGhost?.Invoke();
@@ -109,7 +109,7 @@ public class GhostController : MonoBehaviour
 
     private IEnumerator ReactivatePlayer()
     {
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForEndOfFrame();
         playerM.gameObject.SetActive(true);
     }
 }
